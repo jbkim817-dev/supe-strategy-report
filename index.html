@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>수페(soofe'e) 일본 진출 — 확보 수치 중심 전략 보고서</title>
+<style>
+  :root{
+    --navy:#14304a;
+    --navy-deep:#0e2438;
+    --blue:#1f5d99;
+    --blue-soft:#e9f0f6;
+    --ink:#1d2733;
+    --sub:#5f6b78;
+    --line:#dde3ea;
+    --bg:#f4f6f9;
+    --card:#ffffff;
+    --gray-soft:#f0f3f6;
+    --warn:#8a5a2b;
+    --warn-soft:#f7f1e7;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:"Pretendard","Apple SD Gothic Neo","Noto Sans KR",-apple-system,sans-serif;background:var(--bg);color:var(--ink);line-height:1.65;font-size:15px}
+  .wrap{max-width:960px;margin:0 auto;padding:48px 28px 80px}
+
+  header.hero{background:linear-gradient(135deg,var(--navy-deep) 0%,var(--navy) 65%,#1a3f61 100%);color:#fff;border-radius:6px;padding:44px 40px;margin-bottom:36px}
+  .hero .kicker{font-size:12px;letter-spacing:.16em;text-transform:uppercase;opacity:.65;margin-bottom:12px}
+  .hero h1{font-size:26px;font-weight:800;letter-spacing:-.01em;line-height:1.4}
+  .hero p.lead{margin-top:14px;font-size:14px;opacity:.85;max-width:660px}
+  .hero .meta{margin-top:24px;display:flex;flex-wrap:wrap;gap:8px}
+  .hero .meta span{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);border-radius:3px;padding:5px 14px;font-size:12.5px}
+
+  .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:40px}
+  .kpi{background:var(--card);border:1px solid var(--line);border-top:3px solid var(--navy);border-radius:4px;padding:18px 16px 15px;text-align:center}
+  .kpi .num{font-size:24px;font-weight:800;color:var(--navy);letter-spacing:-.02em}
+  .kpi .lbl{font-size:11.8px;color:var(--sub);margin-top:5px}
+
+  section{margin-bottom:46px}
+  h2{font-size:18px;font-weight:800;letter-spacing:-.01em;margin-bottom:6px;display:flex;align-items:center;gap:10px;color:var(--navy)}
+  h2 .no{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:3px;background:var(--navy);color:#fff;font-size:13px;font-weight:700;flex:none}
+  .sec-sub{color:var(--sub);font-size:13.5px;margin-bottom:16px}
+
+  table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);font-size:13.5px}
+  thead th{background:var(--navy);color:#fff;font-weight:600;text-align:left;padding:10px 14px;font-size:12.5px;letter-spacing:.03em}
+  tbody td{padding:11px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+  tbody tr:last-child td{border-bottom:none}
+  tbody tr.total td{background:var(--blue-soft);font-weight:800;color:var(--navy)}
+  .num-cell{font-weight:700;white-space:nowrap}
+  .tag{display:inline-block;background:var(--blue-soft);color:var(--blue);border-radius:3px;padding:1px 8px;font-size:11.5px;font-weight:700;margin-right:4px}
+  .tag.free{background:var(--gray-soft);color:var(--sub)}
+
+  .comment{border-left:3px solid var(--navy);background:var(--gray-soft);padding:14px 18px;margin-top:14px;font-size:13.3px;color:#2c3946}
+  .comment b.cl{color:var(--navy);display:block;font-size:11.5px;letter-spacing:.1em;margin-bottom:5px}
+  .comment.warn{border-left-color:var(--warn);background:var(--warn-soft)}
+  .comment.warn b.cl{color:var(--warn)}
+
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:4px;padding:18px 20px}
+  .card h3{font-size:13.5px;font-weight:800;margin-bottom:8px;color:var(--navy)}
+  .card p, .card li{font-size:13.3px;color:#33404d}
+  .card ol, .card ul{padding-left:18px;display:flex;flex-direction:column;gap:6px}
+
+  /* charts */
+  .chart-row{display:grid;grid-template-columns:300px 1fr;gap:14px;margin-top:16px}
+  .chart-box{background:var(--card);border:1px solid var(--line);border-radius:4px;padding:18px 20px}
+  .chart-box h4{font-size:12.5px;font-weight:700;color:var(--navy);margin-bottom:14px;letter-spacing:.02em}
+  .donut-wrap{display:flex;align-items:center;gap:16px}
+  .legend{display:flex;flex-direction:column;gap:7px;font-size:12px;color:#33404d}
+  .legend span{display:flex;align-items:center;gap:7px}
+  .legend i{width:10px;height:10px;border-radius:2px;flex:none}
+
+  .hbar{display:flex;flex-direction:column;gap:10px}
+  .hbar .row{display:grid;grid-template-columns:150px 1fr 52px;align-items:center;gap:10px;font-size:12.3px}
+  .hbar .row .lab{color:#33404d}
+  .hbar .row .track{background:var(--gray-soft);border-radius:2px;height:14px;overflow:hidden}
+  .hbar .row .fill{height:100%;background:var(--navy)}
+  .hbar .row .fill.l1{background:#14304a}.hbar .row .fill.l2{background:#1f5d99}.hbar .row .fill.l3{background:#4d84b5}.hbar .row .fill.l4{background:#8fb3cf}.hbar .row .fill.l5{background:#c3d6e5}
+  .hbar .row .val{font-weight:700;color:var(--navy);text-align:right;white-space:nowrap}
+
+  .vbar{display:flex;align-items:flex-end;gap:14px;height:150px;padding-top:6px}
+  .vbar .col{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;height:100%;justify-content:flex-end}
+  .vbar .bar{width:70%;background:var(--navy);border-radius:2px 2px 0 0;min-height:2px}
+  .vbar .bar.peak{background:var(--blue)}
+  .vbar .v{font-size:11.5px;font-weight:700;color:var(--navy)}
+  .vbar .m{font-size:11.5px;color:var(--sub)}
+
+  .timeline{background:var(--card);border:1px solid var(--line);border-radius:4px;overflow:hidden}
+  .t-row{display:grid;grid-template-columns:96px 1fr;border-bottom:1px solid var(--line)}
+  .t-row:last-child{border-bottom:none}
+  .t-month{background:var(--blue-soft);color:var(--navy);font-weight:800;font-size:13.5px;display:flex;align-items:center;justify-content:center;padding:14px 0;text-align:center}
+  .t-month.hot{background:var(--navy);color:#fff}
+  .t-body{padding:13px 18px}
+  .t-body b{font-size:13.5px}
+  .t-body p{font-size:12.6px;color:var(--sub);margin-top:2px}
+
+  .basis{background:var(--card);border:1px solid var(--line);border-radius:4px;padding:6px 22px}
+  .basis-item{padding:15px 0;border-bottom:1px solid var(--line)}
+  .basis-item:last-child{border-bottom:none}
+  .basis-item b.q{display:block;font-size:14px;margin-bottom:4px;color:var(--navy)}
+  .basis-item p{font-size:13.3px;color:#33404d}
+
+  footer{margin-top:52px;padding-top:20px;border-top:1px solid var(--line);color:var(--sub);font-size:12px}
+  footer a{color:var(--blue);text-decoration:none}
+  footer .srcs{display:flex;flex-direction:column;gap:3px;margin-top:8px}
+
+  @media(max-width:720px){
+    .kpis{grid-template-columns:repeat(2,1fr)}
+    .grid2,.chart-row{grid-template-columns:1fr}
+    .hero h1{font-size:21px}
+    .wrap{padding:24px 14px 60px}
+    header.hero{padding:30px 24px}
+  }
+  @media print{ body{background:#fff} .wrap{padding:0} .edit-bar{display:none!important} }
+
+  /* edit mode */
+  .edit-bar{position:fixed;top:16px;right:16px;z-index:99;display:flex;gap:8px}
+  .edit-bar button{border:1px solid var(--line);background:#fff;color:var(--navy);font-family:inherit;font-size:12.5px;font-weight:700;padding:8px 14px;border-radius:4px;cursor:pointer;box-shadow:0 2px 8px rgba(20,48,74,.12)}
+  .edit-bar button:hover{background:var(--blue-soft)}
+  .edit-bar button.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+  body.editing .wrap{outline:2px dashed #4d84b5;outline-offset:8px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <div class="kicker">soofe'e · Japan Market Entry · 2026.07–12</div>
+  <h1>매출과 별개로 확보되는 브랜드 자산<br>— 집행 기반 예상 확보 수치</h1>
+  <p class="lead">매출(ROAS 200%)은 시장 변수의 영향을 받지만, 콘텐츠 · 리뷰 · 노출은 집행하면 남는 자산입니다. 본 보고서는 일본 시장 실단가와 자체 운영 실적을 기준으로, 기간 내 확보되는 수치를 항목별로 제시합니다.</p>
+  <div class="meta">
+    <span>기간 2026.7 ~ 12 (6개월)</span>
+    <span>예산 5,000만원 + 인앱광고 1,000만원 별도</span>
+    <span>11월 메가와리 집중 · 메가데뷔는 2027 상반기 검토</span>
+  </div>
+</header>
+
+<div class="kpis">
+  <div class="kpi"><div class="num">110건+</div><div class="lbl">인플루언서 콘텐츠<br>(유상 확정 20건 포함)</div></div>
+  <div class="kpi"><div class="num">300건+</div><div class="lbl">Qoo10 리뷰 누적<br>(샘플마켓 선축적 100건 포함)</div></div>
+  <div class="kpi"><div class="num">1,500+</div><div class="lbl">X 리포스트<br>(캠페인 2회 합산)</div></div>
+  <div class="kpi"><div class="num">400만+</div><div class="lbl">누적 노출<br>(월 평균 70만+ 리치)</div></div>
+</div>
+
+<section>
+  <h2><span class="no">1</span>예산 배분</h2>
+  <p class="sec-sub">총 5,000만원. 인앱광고 1,000만원은 별도 집행(기존 전략 유지).</p>
+  <div class="chart-row">
+    <div class="chart-box">
+      <h4>예산 구성비</h4>
+      <div class="donut-wrap">
+        <svg width="130" height="130" viewBox="0 0 160 160">
+          <circle cx="80" cy="80" r="60" fill="none" stroke="#eef1f4" stroke-width="26"/>
+          <circle cx="80" cy="80" r="60" fill="none" stroke="#14304a" stroke-width="26" stroke-dasharray="150.8 226.2" stroke-dashoffset="0" transform="rotate(-90 80 80)"/>
+          <circle cx="80" cy="80" r="60" fill="none" stroke="#1f5d99" stroke-width="26" stroke-dasharray="113.1 263.9" stroke-dashoffset="-150.8" transform="rotate(-90 80 80)"/>
+          <circle cx="80" cy="80" r="60" fill="none" stroke="#4d84b5" stroke-width="26" stroke-dasharray="75.4 301.6" stroke-dashoffset="-263.9" transform="rotate(-90 80 80)"/>
+          <circle cx="80" cy="80" r="60" fill="none" stroke="#a9c4d8" stroke-width="26" stroke-dasharray="37.7 339.3" stroke-dashoffset="-339.3" transform="rotate(-90 80 80)"/>
+          <text x="80" y="76" text-anchor="middle" font-size="15" font-weight="800" fill="#14304a">5,000</text>
+          <text x="80" y="94" text-anchor="middle" font-size="10" fill="#5f6b78">만원</text>
+        </svg>
+        <div class="legend">
+          <span><i style="background:#14304a"></i>인플루언서·UGC 40%</span>
+          <span><i style="background:#1f5d99"></i>SingleONE 30%</span>
+          <span><i style="background:#4d84b5"></i>Qoo10 광고 20%</span>
+          <span><i style="background:#a9c4d8"></i>X·리뷰·운영 10%</span>
+        </div>
+      </div>
+    </div>
+    <div class="chart-box">
+      <h4>항목별 금액 · 역할</h4>
+      <div class="hbar">
+        <div class="row"><span class="lab">인플루언서 · UGC</span><div class="track"><div class="fill l1" style="width:100%"></div></div><span class="val">2,000만</span></div>
+        <div class="row"><span class="lab">SingleONE 퍼포먼스</span><div class="track"><div class="fill l2" style="width:75%"></div></div><span class="val">1,500만</span></div>
+        <div class="row"><span class="lab">Qoo10 유상광고</span><div class="track"><div class="fill l3" style="width:50%"></div></div><span class="val">1,000만</span></div>
+        <div class="row"><span class="lab">X 경품 · 리뷰 인센티브 · 운영</span><div class="track"><div class="fill l4" style="width:25%"></div></div><span class="val">500만</span></div>
+      </div>
+      <p style="font-size:12px;color:var(--sub);margin-top:14px">인플루언서 콘텐츠가 자산의 원천 — SingleONE은 해당 소재를 2차 활용해 Qoo10 유입 · 전환을 담당.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2><span class="no">2</span>인플루언서 콘텐츠 수량 (핵심)</h2>
+  <p class="sec-sub">메가급(50만+, 실집행가 1,000만원 이상)은 예산 구조상 제외 — 미들 상위급을 앵커로 세우는 클러스터 구조.</p>
+  <table>
+    <thead><tr><th>티어</th><th>인원</th><th>콘텐츠 수</th><th>시점</th><th>예산</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><span class="tag">유상</span><b>앵커 · 미들 상위</b> (팔로워 20만~40만)</td>
+        <td class="num-cell">1명</td><td class="num-cell">2건 <span style="color:var(--sub);font-weight:400">(릴스+스토리)</span></td>
+        <td>11월 메가와리 D-7</td><td class="num-cell">약 450만원</td>
+      </tr>
+      <tr>
+        <td><span class="tag">유상</span><b>미들</b> (10만~20만)</td>
+        <td class="num-cell">5명</td><td class="num-cell">10건 <span style="color:var(--sub);font-weight:400">(릴스 5 + 스토리 5)</span></td>
+        <td>10~11월</td><td class="num-cell">약 950만원</td>
+      </tr>
+      <tr>
+        <td><span class="tag">유상</span><b>마이크로</b> (3만~10만)</td>
+        <td class="num-cell">8명</td><td class="num-cell">8건</td>
+        <td>9~11월</td><td class="num-cell">약 480만원</td>
+      </tr>
+      <tr>
+        <td><span class="tag free">기프팅</span><b>마이크로</b> (1만~3만)</td>
+        <td class="num-cell">50명 발송</td><td class="num-cell">5건 내외 <span style="color:var(--sub);font-weight:400">(회수율 약 10%)</span></td>
+        <td>9~11월</td><td class="num-cell">제품 원가만</td>
+      </tr>
+      <tr>
+        <td><span class="tag free">시딩</span><b>나노</b> (1만 미만)</td>
+        <td class="num-cell">120명 발송</td><td class="num-cell">95~110건 <span style="color:var(--sub);font-weight:400">(회수율 80~90%)</span></td>
+        <td>8~10월</td><td class="num-cell">제품 원가만</td>
+      </tr>
+      <tr class="total">
+        <td>합계</td><td>184명 (발송 기준)</td><td>110~135건</td><td>8~11월</td><td>약 1,880만원</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="chart-row">
+    <div class="chart-box" style="grid-column:1 / -1">
+      <h4>티어별 콘텐츠 확보량 (건)</h4>
+      <div class="hbar">
+        <div class="row"><span class="lab">나노 시딩 (120명 발송)</span><div class="track"><div class="fill l1" style="width:100%"></div></div><span class="val">95건</span></div>
+        <div class="row"><span class="lab">미들 유상 (5명)</span><div class="track"><div class="fill l2" style="width:10.5%"></div></div><span class="val">10건</span></div>
+        <div class="row"><span class="lab">마이크로 유상 (8명)</span><div class="track"><div class="fill l3" style="width:8.4%"></div></div><span class="val">8건</span></div>
+        <div class="row"><span class="lab">마이크로 기프팅 (50명 발송)</span><div class="track"><div class="fill l4" style="width:5.3%"></div></div><span class="val">5건</span></div>
+        <div class="row"><span class="lab">앵커 · 미들 상위 (1명)</span><div class="track"><div class="fill l5" style="width:2.1%"></div></div><span class="val">2건</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="comment">
+    <b class="cl">COMMENT — 메가급을 제외한 이유</b>
+    50만+ 메가급 실집행가는 최소 1,000만원 이상으로 인플루언서 예산의 절반을 소진합니다. 동일 비용으로 미들 6명(합산 팔로워 80만~120만)을 운영하면 콘텐츠가 2건 → 12건으로 늘고 노출 총량은 유사합니다. 메가와리 핵심 구매층(10~20대 여성)은 단발 대형 노출보다 같은 주에 여러 계정에서 동시에 보이는 것에 반응하며, 실제 검증 사례(합산 30만 팔로워 계정으로 메가와리 2주간 4,600세트 · 2,700만엔)도 메가 없이 만들어졌습니다. 리스크 측면에서도 메가 1명의 실패는 복구가 불가하지만, 미들 6명 중 1~2명의 저성과는 흡수 가능합니다.
+  </div>
+  <div class="comment">
+    <b class="cl">COMMENT — 시딩과 기프팅의 회수율은 완전히 다름</b>
+    나노 시딩은 게시 의사를 확인한 뒤 발송하는 체험단 구조로 자체 운영 실적 기준 회수율 80~90%가 확보되는 반면, 단순 기프팅(제품만 전달)은 회수율이 약 10% 수준입니다. 이에 따라 마이크로 기프팅은 50명 발송 → 5건 내외로 산정했으며, 기프팅은 콘텐츠 확보 수단이 아닌 관계 구축 · 잠재 유상 후보 발굴 용도로 운영합니다. 콘텐츠 수량 확대가 필요한 경우 기프팅 증량이 아니라 나노 시딩 발송을 120 → 200명으로 늘리는 것이 효율적입니다(200명 발송 시 160건 이상).
+  </div>
+</section>
+
+<section>
+  <h2><span class="no">3</span>SNS · 리뷰 확보 수치</h2>
+  <table>
+    <thead><tr><th>채널</th><th>예상 수치</th><th>방법</th></tr></thead>
+    <tbody>
+      <tr><td><b>Qoo10 리뷰</b></td><td class="num-cell">300~450건</td><td>샘플마켓 선축적 100건 + 구매자 리뷰 인센티브 쿠폰</td></tr>
+      <tr><td><b>X(트위터) 리포스트</b></td><td class="num-cell">회당 800~1,500건 × 2회</td><td>팔로우&리포스트 경품 캠페인 (10월 · 11월, 3종 세트 × 10명)</td></tr>
+      <tr><td><b>X 계정 팔로워</b></td><td class="num-cell">+500~1,000명</td><td>캠페인 부산물 (팔로우 조건) — 이탈 감안한 순증 기준</td></tr>
+      <tr><td><b>누적 노출(리치)</b></td><td class="num-cell">400만+ (월 평균 70만+)</td><td>전체 콘텐츠 합산</td></tr>
+    </tbody>
+  </table>
+  <div class="comment">
+    <b class="cl">COMMENT — 리뷰는 판매에 의존하지 않는 2중 구조</b>
+    ① 메가와리 1개월 전 샘플마켓 선축적 100건은 판매와 무관하게 확보 가능(Qoo10 공식 프로세스). ② 리뷰 인센티브 쿠폰 적용 시 구매자의 20~30%가 리뷰를 작성 — 목표 매출의 절반만 달성해도 누적 300건을 초과합니다. X 팔로워는 캠페인 직후 이탈분을 제외한 순증 기준으로 +500~1,000명을 제시합니다.
+  </div>
+</section>
+
+<section>
+  <h2><span class="no">4</span>월별 실행 로드맵 (조정안)</h2>
+  <p class="sec-sub">현 시점(7월) 착수 기준으로 조정. 10월 메가데뷔 슬롯 진입은 준비 기간(샘플마켓 선축적 · 슬롯 확보)상 불가 → 11월 메가와리를 1차 피크로 설정하고, 메가데뷔는 2027년 상반기 검토.</p>
+  <div class="timeline">
+    <div class="t-row"><div class="t-month">7월</div><div class="t-body"><b>킥오프 · 기반 세팅</b><p>상세페이지 · 번역 · 시딩풀 리스트업 · 체험단 파트너 계약</p></div></div>
+    <div class="t-row"><div class="t-month">8월</div><div class="t-body"><b>나노 시딩 1차 (60명 발송)</b><p>애용감 콘텐츠 축적 시작 · Qoo10 스토어 오픈 준비</p></div></div>
+    <div class="t-row"><div class="t-month">9월</div><div class="t-body"><b>나노 2차 (60명) + 마이크로 유상 · 기프팅 개시</b><p>9월 가을 메가와리는 소규모 시장 테스트로 활용 · 인사이트 확보</p></div></div>
+    <div class="t-row"><div class="t-month">10월</div><div class="t-body"><b>미들 5명 순차 업로드 + X 캠페인 1차 + 샘플마켓 리뷰 선축적</b><p>저장 · 검토 리스트 추가 유도형 콘텐츠 · 리뷰 100건 세팅</p></div></div>
+    <div class="t-row"><div class="t-month hot">11월</div><div class="t-body"><b>메가와리 집중 — 앵커(D-7) + 클러스터 동시 업로드 + X 2차</b><p>SingleONE 전환 캠페인 집중 · 타임세일 · 리뷰 인센티브 풀가동 · 인앱광고 별도 집행</p></div></div>
+    <div class="t-row"><div class="t-month">12월</div><div class="t-body"><b>연말세일 · 앵콜 · 결산</b><p>UGC 2차 활용 · 재구매 쿠폰 · 확보 수치 결산 리포트 · 2027 메가데뷔 진입 설계</p></div></div>
+  </div>
+
+  <div class="chart-box" style="margin-top:14px">
+    <h4>월별 예상 콘텐츠 게시량 (건)</h4>
+    <div class="vbar">
+      <div class="col"><span class="v">0</span><div class="bar" style="height:2%"></div><span class="m">7월</span></div>
+      <div class="col"><span class="v">22</span><div class="bar" style="height:37%"></div><span class="m">8월</span></div>
+      <div class="col"><span class="v">40</span><div class="bar" style="height:67%"></div><span class="m">9월</span></div>
+      <div class="col"><span class="v">33</span><div class="bar" style="height:55%"></div><span class="m">10월</span></div>
+      <div class="col"><span class="v">20</span><div class="bar peak" style="height:33%"></div><span class="m">11월 (피크)</span></div>
+      <div class="col"><span class="v">5</span><div class="bar" style="height:8%"></div><span class="m">12월</span></div>
+    </div>
+    <p style="font-size:12px;color:var(--sub);margin-top:12px">8~10월은 나노 · 마이크로 물량으로 검색 결과 · UGC 기반을 쌓고, 11월은 건수가 아닌 화력(앵커 + 미들 클러스터 동시 업로드)으로 전환을 만드는 구조.</p>
+  </div>
+
+  <div class="comment warn">
+    <b class="cl">COMMENT — 메가데뷔 이월 사유</b>
+    메가데뷔는 슬롯 사전 확보와 1개월 전 샘플마켓 리뷰 선축적이 전제 조건입니다. 현 시점 착수로는 10월 진입 준비가 물리적으로 불가하므로, 2026년은 11월 메가와리 중심으로 운영하고 메가데뷔는 리뷰 · 콘텐츠 자산이 쌓인 2027년 상반기에 진입하는 것이 성공 확률이 높습니다. 확보된 리뷰 300건+와 콘텐츠 110건+는 그대로 메가데뷔 진입 자산이 됩니다.
+  </div>
+</section>
+
+<section>
+  <h2><span class="no">5</span>수치 산출 근거</h2>
+  <div class="basis">
+    <div class="basis-item">
+      <b class="q">단가 — 일본 시장 실단가 기준</b>
+      <p>일본 인스타그램 PR 단가는 팔로워당 2~3엔, 틱톡 1~3엔이 표준. 스킨케어는 뷰티 중 저가 영역(5만 팔로워급 5~15만엔)으로, 위 인원 구성이 예산 2,000만원 내에서 산출됩니다. 단, 미들 상위급 이상은 실집행가가 표준 단가를 상회하는 경우가 많아 상한가 기준으로 편성했습니다.</p>
+    </div>
+    <div class="basis-item">
+      <b class="q">회수율 — 시딩 80~90% vs 기프팅 10%</b>
+      <p>게시 의사를 확인한 후 발송하는 나노 시딩(체험단 · 캐스팅 플랫폼 경유)은 자체 운영 실적 기준 회수율 80~90%가 확보됩니다(120명 → 95~110건). 반면 게시 약속 없이 제품만 전달하는 기프팅은 회수율 약 10%(50명 발송 → 5건 내외)로, 시장 평균(무상 기프팅 수락률 10% 미만)과도 일치합니다. 두 수치를 혼용하지 않도록 구분해 반영했습니다.</p>
+    </div>
+    <div class="basis-item">
+      <b class="q">시점 배치 — 검증된 메가와리 3단계 구조</b>
+      <p>메가와리는 시작 3~5일 전 쿠폰 배포로 "사전 검토 리스트" 경쟁이 본질. 성공 사례의 공통 구조는 ① 수개월 전 애용감 콘텐츠 → ② D-1개월 저장 · 리스트 추가 유도 → ③ 세일 초일 가격 소구 집중이며, 본 로드맵의 나노(8~10월) → 미들(10~11월) → 앵커(11월 D-7) 배치는 이 구조를 따릅니다.</p>
+    </div>
+    <div class="basis-item">
+      <b class="q">X 캠페인 — 참가율 데이터 기반</b>
+      <p>리포스트 조건 캠페인이 참가율이 가장 높고, 경품 단가가 낮을수록 참가율이 상승합니다. 신규 브랜드 계정은 초기 팔로워 기반이 없는 점을 반영해 회당 리포스트 800~1,500건, 팔로워 순증은 캠페인 후 이탈분을 제외하고 +500~1,000명으로 산정했습니다.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2><span class="no">6</span>리스크 관리 · 커뮤니케이션 가이드</h2>
+  <div class="grid2">
+    <div class="card">
+      <h3>확정 수치와 범위 수치의 구분</h3>
+      <ul>
+        <li><b>집행으로 확정되는 수치</b>: 유상 콘텐츠 20건 (앵커 2 + 미들 10 + 마이크로 8), 시딩 발송 수량 120명, X 캠페인 횟수 2회, 샘플마켓 리뷰 100건</li>
+        <li><b>구조상 통제되는 범위 수치</b>: 나노 게시 건수, 리포스트 수, 구매 리뷰 수, 노출량 — 운영 실적 기반의 범위로 제시</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>운영 원칙</h3>
+      <ol>
+        <li>앵커 섭외 불발 시 미들 2명으로 대체 — 총 콘텐츠 수 유지</li>
+        <li>콘텐츠 증량 필요 시 나노 발송 확대(120→200명)가 최우선 수단</li>
+        <li>월간 리포트로 확보 수치 진척을 항목별 공유 · 부진 항목은 익월 예산 재배분으로 보정</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <b>참고 자료</b>
+  <div class="srcs">
+    <a href="https://mochainc.co.jp/influencer-pricing-by-followers/">일본 인플루언서 팔로워별 단가표 (2026)</a>
+    <a href="https://mochainc.co.jp/beauty-influencer-cost/">뷰티 인플루언서 비용 상세</a>
+    <a href="https://tatap.jp/knowledge/influencer-gifting-costs/">기프팅 수락률 실태</a>
+    <a href="https://netshop.impress.co.jp/node/14230">Qoo10 메가와리 인플루언서 사례 — 2주 4,600세트 · 2,700만엔 (PLAN-B)</a>
+    <a href="https://h-full.co.jp/marketingplus1/sns-086/">메가와리 인플루언서 시책 설계 가이드</a>
+    <a href="https://www.karabinaheart.com/xprecan/">X 프레젠트 캠페인 조건별 참가율 분석</a>
+  </div>
+  <p style="margin-top:14px">본 보고서의 수치는 「수페 온라인 전략」(veloworks) 기존 예산 체계를 기준으로 한 집행 기반 예상치이며, 매출 성과와 독립적으로 확보되는 자산 지표를 대상으로 합니다. · 2026.07</p>
+</footer>
+
+</div>
+
+<div class="edit-bar">
+  <button id="btnEdit" onclick="toggleEdit()">✏️ 텍스트 편집</button>
+  <button onclick="saveHtml()">💾 저장 (HTML 다운로드)</button>
+</div>
+
+<script>
+function toggleEdit(){
+  var wrap=document.querySelector('.wrap');
+  var btn=document.getElementById('btnEdit');
+  var on=wrap.getAttribute('contenteditable')==='true';
+  wrap.setAttribute('contenteditable', on?'false':'true');
+  document.body.classList.toggle('editing', !on);
+  btn.classList.toggle('on', !on);
+  btn.textContent = on ? '✏️ 텍스트 편집' : '✅ 편집 중 (클릭하여 종료)';
+  if(!on){ wrap.focus(); }
+}
+function saveHtml(){
+  var wrap=document.querySelector('.wrap');
+  var wasOn=wrap.getAttribute('contenteditable')==='true';
+  if(wasOn){ toggleEdit(); }
+  var html='<!DOCTYPE html>\n'+document.documentElement.outerHTML;
+  var blob=new Blob([html],{type:'text/html;charset=utf-8'});
+  var a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='수페_일본진출_확보수치_전략보고서.html';
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+</script>
+</body>
+</html>
